@@ -1,0 +1,21 @@
+    ---
+apply: always
+---
+
+# webshop-robert — Cursor project rules
+
+## Canonical document
+
+All backend architecture, layering, security, testing, and quality rules live in:
+
+**`.aiassistant/rules/BACKEND_RULES.md`**
+
+Treat that file as the **single source of truth**. Read and follow it in full for any backend work. If this file and `BACKEND_RULES.md` disagree, **`BACKEND_RULES.md` wins**.
+
+## Non-exhaustive summary
+
+- **`api`**: HTTP boundary only—controllers (**routing**), DTOs, syntactic validation, DTO ↔ domain mapping at the edge, Spring Security / web filters, global HTTP exception mapping. **No** application or domain **`@Service`** use-case classes.
+- **`core`**: Domain model, ports, repository interfaces, **`RbacService`**, and **all** application/domain **`@Service`** orchestration.
+- **Tests**: **Integration tests** (DB, Liquibase, JPA adapters, transactions, business flows through **`core` services**) belong in **`core/src/test`** (or a dedicated IT Maven module). **`api/src/test`** is for **HTTP contract** tests only (e.g. MockMvc: routes, status codes, security boundary, JSON)—not the sole home for full business+persistence coverage.
+
+For payment modules, persistence layout, money rules, and everything else, see **`BACKEND_RULES.md`**.

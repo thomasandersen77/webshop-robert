@@ -1,14 +1,6 @@
 # webshop-robert
 
-Eksempel på nettbutikk front end for Robert E
-
-## Frontend
-
-Frontend ligger i `frontend/` og kan kjores slik:
-
-- `cd frontend`
-- `npm install`
-- `npm run dev`
+Backend og database for nettbutikk (Robert E). Frontend er skilt ut til eget repo: `webshop-robert-web` (klon/kopi ved siden av dette repoet).
 
 ## Database (PostgreSQL) fra prosjektroten
 

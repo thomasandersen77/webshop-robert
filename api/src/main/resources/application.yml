@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: webshop-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/webshop
+    username: webshop
+    password: webshop
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+jwt:
+  secret: "dev-only-change-me-minimum-32-characters-long!!"
+  expiration: 86400000

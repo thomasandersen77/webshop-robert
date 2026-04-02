@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-products
+      author: robert
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_category
+                    referencedTableName: product_categories
+                    referencedColumnNames: id
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_minor
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating_stars
+                  type: int
+                  constraints:
+                    nullable: false
