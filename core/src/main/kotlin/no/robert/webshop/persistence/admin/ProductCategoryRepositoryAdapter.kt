@@ -1,5 +1,6 @@
 package no.robert.webshop.persistence.admin
 
+import no.robert.webshop.Money
 import no.robert.webshop.Product
 import no.robert.webshop.ProductCategory
 import no.robert.webshop.ProductCategoryRepository
@@ -42,7 +43,7 @@ class ProductCategoryRepositoryAdapter(
             categoryId = this.categoryId,
             name = this.name,
             description = this.description,
-            priceMinor = this.priceMinor,
+            price = Money(this.priceMinor, this.currency),
             ratingStars = this.ratingStars
         )
     }

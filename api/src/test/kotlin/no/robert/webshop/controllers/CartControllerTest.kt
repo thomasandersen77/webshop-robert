@@ -5,6 +5,7 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import no.robert.webshop.Money
 import no.robert.webshop.User
 import no.robert.webshop.UserRole
 import no.robert.webshop.basket.AddProductToBasketCommand
@@ -141,7 +142,7 @@ class CartControllerTest {
                 BasketItem(
                     productId = "product-1",
                     quantity = quantity,
-                    unitPriceMinor = 29900,
+                    unitPrice = Money.nok(29900),
                 ),
             ),
         )

@@ -6,7 +6,7 @@ import no.robert.webshop.basket.BasketAlreadyExistsException
 import no.robert.webshop.basket.BasketNotFoundException
 import no.robert.webshop.basket.BasketProductNotFoundException
 import no.robert.webshop.basket.BasketProductNotInBasketException
-import no.robert.webshop.dto.auth.ErrorResponseDto
+import no.robert.webshop.controllers.dto.ErrorResponseDto
 import no.robert.webshop.identity.AccessDeniedException
 import no.robert.webshop.identity.auth.EmailAlreadyRegisteredException
 import no.robert.webshop.identity.auth.InvalidCredentialsException

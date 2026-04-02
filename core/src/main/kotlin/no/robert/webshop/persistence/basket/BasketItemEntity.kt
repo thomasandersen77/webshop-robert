@@ -23,4 +23,7 @@ class BasketItemEntity(
 
     @Column(name = "unit_price_minor", nullable = false)
     var unitPriceMinor: Long = 0L,
+
+    @Column(name = "currency", nullable = false, length = 3)
+    var currency: String = "NOK",
 )

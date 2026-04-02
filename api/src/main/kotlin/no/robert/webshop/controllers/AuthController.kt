@@ -2,13 +2,13 @@ package no.robert.webshop.controllers
 
 import jakarta.validation.Valid
 import no.robert.webshop.User
-import no.robert.webshop.dto.auth.ErrorResponseDto
-import no.robert.webshop.dto.auth.LoginRequestDto
-import no.robert.webshop.dto.auth.RegisterUserRequestDto
-import no.robert.webshop.dto.auth.TokenResponseDto
-import no.robert.webshop.dto.auth.toLoginCommand
-import no.robert.webshop.dto.auth.toRegisterCommand
-import no.robert.webshop.dto.auth.toUserResponseDto
+import no.robert.webshop.controllers.dto.ErrorResponseDto
+import no.robert.webshop.controllers.dto.LoginRequestDto
+import no.robert.webshop.controllers.dto.RegisterUserRequestDto
+import no.robert.webshop.controllers.dto.TokenResponseDto
+import no.robert.webshop.mapping.toLoginCommand
+import no.robert.webshop.mapping.toRegisterCommand
+import no.robert.webshop.mapping.toUserResponseDto
 import no.robert.webshop.identity.auth.AuthService
 import no.robert.webshop.security.CurrentUser
 import no.robert.webshop.security.JwtUtil

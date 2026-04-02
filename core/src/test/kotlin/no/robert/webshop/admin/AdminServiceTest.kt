@@ -60,7 +60,7 @@ class AdminServiceTest {
 
     @Test
     fun `admin can create valid product`() {
-        val command = CreateProductCommand("cat1", "Name", "Desc", 100, 5)
+        val command = CreateProductCommand("cat1", "Name", "Desc", 100, "NOK", 5)
         every { repository.findCategoryById("cat1") } returns ProductCategory("cat1", "Cat")
         every { repository.saveProduct(any()) } answers { it.invocation.args[0] as Product }
 
@@ -68,14 +68,15 @@ class AdminServiceTest {
 
         assertEquals("Name", result.name)
         assertEquals("Desc", result.description)
-        assertEquals(100, result.priceMinor)
+        assertEquals(100L, result.price.amountMinor)
+        assertEquals("NOK", result.price.currency)
         assertEquals(5, result.ratingStars)
         verify { repository.saveProduct(any()) }
     }
 
     @Test
     fun `cannot create product in non-existing category`() {
-        val command = CreateProductCommand("non-existing", "Name", "Desc", 100, 5)
+        val command = CreateProductCommand("non-existing", "Name", "Desc", 100, "NOK", 5)
         every { repository.findCategoryById("non-existing") } returns null
 
         assertThrows(ProductCategoryNotFoundException::class.java) {
@@ -85,7 +86,7 @@ class AdminServiceTest {
 
     @Test
     fun `non-admin cannot create product`() {
-        val command = CreateProductCommand("cat1", "Name", "Desc", 100, 5)
+        val command = CreateProductCommand("cat1", "Name", "Desc", 100, "NOK", 5)
         assertThrows(AccessDeniedException::class.java) {
             adminService.createProduct(regularUser, command)
         }
@@ -93,7 +94,7 @@ class AdminServiceTest {
 
     @Test
     fun `validate product name`() {
-        val command = CreateProductCommand("cat1", " ", "Desc", 100, 5)
+        val command = CreateProductCommand("cat1", " ", "Desc", 100, "NOK", 5)
         assertThrows(IllegalArgumentException::class.java) {
             adminService.createProduct(adminUser, command)
         }
@@ -101,7 +102,7 @@ class AdminServiceTest {
 
     @Test
     fun `validate product price`() {
-        val command = CreateProductCommand("cat1", "Name", "Desc", -1, 5)
+        val command = CreateProductCommand("cat1", "Name", "Desc", -1, "NOK", 5)
         assertThrows(IllegalArgumentException::class.java) {
             adminService.createProduct(adminUser, command)
         }
@@ -110,10 +111,10 @@ class AdminServiceTest {
     @Test
     fun `validate product rating`() {
         assertThrows(IllegalArgumentException::class.java) {
-            adminService.createProduct(adminUser, CreateProductCommand("cat1", "N", "D", 1, 0))
+            adminService.createProduct(adminUser, CreateProductCommand("cat1", "N", "D", 1, "NOK", 0))
         }
         assertThrows(IllegalArgumentException::class.java) {
-            adminService.createProduct(adminUser, CreateProductCommand("cat1", "N", "D", 1, 6))
+            adminService.createProduct(adminUser, CreateProductCommand("cat1", "N", "D", 1, "NOK", 6))
         }
     }
 }

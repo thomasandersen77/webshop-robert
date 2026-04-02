@@ -1,5 +1,6 @@
 package no.robert.webshop.admin
 
+import no.robert.webshop.Money
 import no.robert.webshop.Product
 import no.robert.webshop.ProductCategory
 import no.robert.webshop.User
@@ -40,7 +41,7 @@ class AdminService(
             categoryId = command.categoryId,
             name = command.name.trim(),
             description = command.description.trim(),
-            priceMinor = command.priceMinor,
+            price = Money(command.priceMinor.toLong(), command.currency),
             ratingStars = command.ratingStars
         )
 
@@ -66,6 +67,7 @@ data class CreateProductCommand(
     val name: String,
     val description: String,
     val priceMinor: Int,
+    val currency: String = "NOK",
     val ratingStars: Int
 )
 

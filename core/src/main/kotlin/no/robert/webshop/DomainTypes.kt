@@ -33,7 +33,7 @@ data class Product(
     val categoryId: String,
     val name: String,
     val description: String,
-    val priceMinor: Int,
+    val price: Money,
     val ratingStars: Int
 )
 

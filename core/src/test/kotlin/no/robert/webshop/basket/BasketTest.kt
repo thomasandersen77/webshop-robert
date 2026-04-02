@@ -1,5 +1,6 @@
 package no.robert.webshop.basket
 
+import no.robert.webshop.Money
 import no.robert.webshop.Product
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -15,7 +16,7 @@ class BasketTest {
             categoryId = "cat-1",
             name = "11kg Flaske",
             description = "Staalflaske",
-            priceMinor = 29900,
+            price = Money.nok(29900),
             ratingStars = 5,
         )
 
@@ -23,7 +24,7 @@ class BasketTest {
 
         assertEquals(1, updated.items.size)
         assertEquals(2, updated.items.first().quantity)
-        assertEquals(59800L, updated.totalAmountMinor())
+        assertEquals(59800L, updated.totalAmount().amountMinor)
     }
 
     @Test
@@ -33,7 +34,7 @@ class BasketTest {
             categoryId = "cat-1",
             name = "11kg Flaske",
             description = "Staalflaske",
-            priceMinor = 29900,
+            price = Money.nok(29900),
             ratingStars = 5,
         )
         val basket = Basket(id = "basket-1", customerId = "customer-1")
@@ -43,7 +44,7 @@ class BasketTest {
 
         assertEquals(1, updated.items.size)
         assertEquals(4, updated.items.first().quantity)
-        assertEquals(119600L, updated.totalAmountMinor())
+        assertEquals(119600L, updated.totalAmount().amountMinor)
     }
 
     @Test
@@ -53,7 +54,7 @@ class BasketTest {
             categoryId = "cat-1",
             name = "11kg Flaske",
             description = "Staalflaske",
-            priceMinor = 29900,
+            price = Money.nok(29900),
             ratingStars = 5,
         )
         val basket = Basket(id = "basket-1", customerId = "customer-1")
@@ -62,7 +63,7 @@ class BasketTest {
         val updated = basket.removeProduct("product-1")
 
         assertEquals(0, updated.items.size)
-        assertEquals(0L, updated.totalAmountMinor())
+        assertEquals(0L, updated.totalAmount().amountMinor)
     }
 
     @Test
@@ -81,7 +82,7 @@ class BasketTest {
             categoryId = "cat-1",
             name = "11kg Flaske",
             description = "Staalflaske",
-            priceMinor = 29900,
+            price = Money.nok(29900),
             ratingStars = 5,
         )
         val basket = Basket(id = "basket-1", customerId = "customer-1")

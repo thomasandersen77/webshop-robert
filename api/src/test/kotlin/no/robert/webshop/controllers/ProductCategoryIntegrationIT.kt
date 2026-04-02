@@ -31,8 +31,8 @@ class ProductCategoryIntegrationIT : AbstractPostgresIntegrationIT() {
         val admin = userRepository.save(User(UUID.randomUUID().toString(), "admin@webshop.no", "hash", UserRole.ADMIN))
         
         val category = adminService.createProductCategory(admin, "Propane")
-        adminService.createProduct(admin, CreateProductCommand(category.id!!, "11kg Cylinder", "Desc", 29900, 5))
-        adminService.createProduct(admin, CreateProductCommand(category.id!!, "5kg Cylinder", "Desc", 19900, 4))
+        adminService.createProduct(admin, CreateProductCommand(category.id!!, "11kg Cylinder", "Desc", 29900, "NOK", 5))
+        adminService.createProduct(admin, CreateProductCommand(category.id!!, "5kg Cylinder", "Desc", 19900, "NOK", 4))
         
         val otherCategory = adminService.createProductCategory(admin, "Accessories")
 
@@ -50,7 +50,7 @@ class ProductCategoryIntegrationIT : AbstractPostgresIntegrationIT() {
         // Setup
         val admin = userRepository.save(User(UUID.randomUUID().toString(), "admin2@webshop.no", "hash", UserRole.ADMIN))
         val category = adminService.createProductCategory(admin, "BBQ")
-        adminService.createProduct(admin, CreateProductCommand(category.id!!, "Gas Grill", "Shiny", 599000, 5))
+        adminService.createProduct(admin, CreateProductCommand(category.id!!, "Gas Grill", "Shiny", 599000, "NOK", 5))
 
         // Act & Assert
         mockMvc.perform(get("/api/product-categories/${category.id}"))

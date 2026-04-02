@@ -22,7 +22,10 @@ class ProductEntity(
     var description: String = "",
 
     @Column(name = "price_minor", nullable = false)
-    var priceMinor: Int = 0,
+    var priceMinor: Long = 0,
+
+    @Column(name = "currency", nullable = false, length = 3)
+    var currency: String = "NOK",
 
     @Column(name = "rating_stars", nullable = false)
     var ratingStars: Int = 0

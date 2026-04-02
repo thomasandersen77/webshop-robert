@@ -28,7 +28,7 @@ class SecurityConfig(
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) }
             .authorizeHttpRequests { auth ->
-                auth.requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                auth.requestMatchers("/api/auth/register", "/api/auth/login", "/api/customers").permitAll()
                 auth.requestMatchers("/api/auth/me").authenticated()
                 auth.requestMatchers("/api/cart/**").authenticated()
                 auth.requestMatchers("/api/admin/**").hasRole("ADMIN")

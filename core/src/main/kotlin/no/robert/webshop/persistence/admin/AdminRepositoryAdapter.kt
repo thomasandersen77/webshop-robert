@@ -1,5 +1,6 @@
 package no.robert.webshop.persistence.admin
 
+import no.robert.webshop.Money
 import no.robert.webshop.Product
 import no.robert.webshop.ProductCategory
 import no.robert.webshop.admin.AdminRepository
@@ -35,7 +36,8 @@ class AdminRepositoryAdapter(
             categoryId = product.categoryId,
             name = product.name,
             description = product.description,
-            priceMinor = product.priceMinor,
+            priceMinor = product.price.amountMinor,
+            currency = product.price.currency,
             ratingStars = product.ratingStars
         )
         return productJpaRepository.save(entity).toDomain()
@@ -62,7 +64,7 @@ class AdminRepositoryAdapter(
             categoryId = this.categoryId,
             name = this.name,
             description = this.description,
-            priceMinor = this.priceMinor,
+            price = Money(this.priceMinor, this.currency),
             ratingStars = this.ratingStars
         )
     }

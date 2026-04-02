@@ -134,6 +134,7 @@ class AdminIntegrationIT : AbstractPostgresIntegrationIT() {
             name = "11kg Cylinder",
             description = "Steel cylinder",
             priceMinor = 29900,
+            currency = "NOK",
             ratingStars = 5
         )
 
@@ -147,6 +148,8 @@ class AdminIntegrationIT : AbstractPostgresIntegrationIT() {
             .andExpect(jsonPath("$.id").exists())
             .andExpect(jsonPath("$.name").value("11kg Cylinder"))
             .andExpect(jsonPath("$.categoryId").value(categoryId))
+            .andExpect(jsonPath("$.price.amountMinor").value(29900))
+            .andExpect(jsonPath("$.price.currency").value("NOK"))
     }
 
     @Test
@@ -166,6 +169,7 @@ class AdminIntegrationIT : AbstractPostgresIntegrationIT() {
             name = "Name",
             description = "Desc",
             priceMinor = 100,
+            currency = "NOK",
             ratingStars = 5
         )
 

@@ -1,4 +1,4 @@
-package no.robert.webshop.dto.auth
+package no.robert.webshop.controllers.dto
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank

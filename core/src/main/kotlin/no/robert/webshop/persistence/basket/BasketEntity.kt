@@ -14,4 +14,7 @@ class BasketEntity(
 
     @Column(name = "customer_id", length = 36, nullable = false, unique = true)
     var customerId: String = "",
+
+    @Column(name = "currency", nullable = false, length = 3)
+    var currency: String = "NOK",
 )

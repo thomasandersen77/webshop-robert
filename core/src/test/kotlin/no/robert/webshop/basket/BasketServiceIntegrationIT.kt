@@ -81,6 +81,7 @@ class BasketServiceIntegrationIT {
                 name = "11kg Flaske",
                 description = "Staalflaske",
                 priceMinor = 29900,
+                currency = "NOK",
                 ratingStars = 5,
             ),
         )
@@ -96,21 +97,21 @@ class BasketServiceIntegrationIT {
         val afterFirstAdd = basketService.addProduct(customer, AddProductToBasketCommand(productId, 2))
         assertEquals(1, afterFirstAdd.items.size)
         assertEquals(2, afterFirstAdd.items.first().quantity)
-        assertEquals(59800L, afterFirstAdd.totalAmountMinor())
+        assertEquals(59800L, afterFirstAdd.totalAmount().amountMinor)
 
         val afterSecondAdd = basketService.addProduct(customer, AddProductToBasketCommand(productId, 1))
         assertEquals(1, afterSecondAdd.items.size)
         assertEquals(3, afterSecondAdd.items.first().quantity)
-        assertEquals(89700L, afterSecondAdd.totalAmountMinor())
+        assertEquals(89700L, afterSecondAdd.totalAmount().amountMinor)
 
         val persisted = basketRepository.findByCustomerId(customer.id)
         assertEquals(1, persisted?.items?.size)
         assertEquals(3, persisted?.items?.first()?.quantity)
-        assertEquals(89700L, persisted?.totalAmountMinor())
+        assertEquals(89700L, persisted?.totalAmount()?.amountMinor)
 
         val afterRemove = basketService.removeProduct(customer, productId)
         assertEquals(0, afterRemove.items.size)
-        assertEquals(0L, afterRemove.totalAmountMinor())
+        assertEquals(0L, afterRemove.totalAmount().amountMinor)
     }
 
     @SpringBootApplication(scanBasePackages = ["no.robert.webshop"])

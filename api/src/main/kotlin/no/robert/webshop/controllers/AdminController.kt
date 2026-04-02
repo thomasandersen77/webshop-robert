@@ -53,6 +53,8 @@ data class CreateProductRequest(
     val description: String,
     @param:JsonProperty("priceMinor")
     val priceMinor: Int,
+    @param:JsonProperty("currency")
+    val currency: String = "NOK",
     @param:JsonProperty("ratingStars")
     val ratingStars: Int
 ) {
@@ -61,6 +63,7 @@ data class CreateProductRequest(
         name = name,
         description = description,
         priceMinor = priceMinor,
+        currency = currency,
         ratingStars = ratingStars
     )
 }
@@ -74,8 +77,8 @@ data class ProductResponse(
     val name: String,
     @param:JsonProperty("description")
     val description: String,
-    @param:JsonProperty("priceMinor")
-    val priceMinor: Int,
+    @param:JsonProperty("price")
+    val price: MoneyResponseDto,
     @param:JsonProperty("ratingStars")
     val ratingStars: Int
 ) {
@@ -86,7 +89,7 @@ data class ProductResponse(
                 categoryId = domain.categoryId,
                 name = domain.name,
                 description = domain.description,
-                priceMinor = domain.priceMinor,
+                price = MoneyResponseDto.from(domain.price),
                 ratingStars = domain.ratingStars
             )
         }

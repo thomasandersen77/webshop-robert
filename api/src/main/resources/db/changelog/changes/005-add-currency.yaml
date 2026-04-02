@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-add-currency-to-products-and-baskets
+      author: robert
+      changes:
+        - addColumn:
+            tableName: products
+            columns:
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  defaultValue: NOK
+                  constraints:
+                    nullable: false
+        - addColumn:
+            tableName: baskets
+            columns:
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  defaultValue: NOK
+                  constraints:
+                    nullable: false
+        - addColumn:
+            tableName: basket_items
+            columns:
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  defaultValue: NOK
+                  constraints:
+                    nullable: false

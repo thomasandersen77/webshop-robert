@@ -47,7 +47,7 @@ data class ProductPublicResponse(
     val id: String,
     val name: String,
     val description: String,
-    val priceMinor: Int,
+    val price: MoneyResponseDto,
     val ratingStars: Int
 ) {
     companion object {
@@ -55,7 +55,7 @@ data class ProductPublicResponse(
             id = domain.id ?: "",
             name = domain.name,
             description = domain.description,
-            priceMinor = domain.priceMinor,
+            price = MoneyResponseDto.from(domain.price),
             ratingStars = domain.ratingStars
         )
     }

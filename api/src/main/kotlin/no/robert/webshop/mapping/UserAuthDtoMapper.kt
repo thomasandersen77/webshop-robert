@@ -1,6 +1,9 @@
-package no.robert.webshop.dto.auth
+package no.robert.webshop.mapping
 
 import no.robert.webshop.User
+import no.robert.webshop.controllers.dto.LoginRequestDto
+import no.robert.webshop.controllers.dto.RegisterUserRequestDto
+import no.robert.webshop.controllers.dto.UserResponseDto
 import no.robert.webshop.identity.auth.LoginCommand
 import no.robert.webshop.identity.auth.RegisterUserCommand
 

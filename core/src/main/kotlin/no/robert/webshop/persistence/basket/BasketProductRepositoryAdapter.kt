@@ -1,5 +1,6 @@
 package no.robert.webshop.persistence.basket
 
+import no.robert.webshop.Money
 import no.robert.webshop.Product
 import no.robert.webshop.basket.BasketProductRepository
 import no.robert.webshop.persistence.admin.ProductEntity
@@ -22,7 +23,7 @@ class BasketProductRepositoryAdapter(
             categoryId = categoryId,
             name = name,
             description = description,
-            priceMinor = priceMinor,
+            price = Money(priceMinor, currency),
             ratingStars = ratingStars,
         )
     }

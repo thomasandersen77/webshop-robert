@@ -1,12 +1,15 @@
 package no.robert.webshop.basket
 
+import no.robert.webshop.Money
 import no.robert.webshop.Product
+import no.robert.webshop.sumOf
 import java.util.UUID
 
 data class Basket(
     val id: String,
     val customerId: String,
     val items: List<BasketItem> = emptyList(),
+    val currency: String = "NOK",
 ) {
 
     init {
@@ -17,15 +20,15 @@ data class Basket(
     fun addProduct(product: Product, quantity: Int): Basket {
         require(quantity > 0) { "Antall må være større enn 0" }
         val productId = product.id ?: throw IllegalArgumentException("Produkt må ha ID")
-        val unitPriceMinor = product.priceMinor.toLong()
-        require(unitPriceMinor >= 0) { "Produktpris kan ikke være negativ" }
+        val price = product.price
+        require(price.currency == this.currency) { "Valuta på produkt (${price.currency}) samsvarer ikke med handlekurv (${this.currency})" }
 
         val existingLine = items.firstOrNull { it.productId == productId }
         val updatedItems = if (existingLine == null) {
             items + BasketItem(
                 productId = productId,
                 quantity = quantity,
-                unitPriceMinor = unitPriceMinor,
+                unitPrice = price,
             )
         } else {
             items.map { line ->
@@ -44,7 +47,7 @@ data class Basket(
         return copy(items = items.filterNot { it.productId == productId })
     }
 
-    fun totalAmountMinor(): Long = items.sumOf { it.lineAmountMinor() }
+    fun totalAmount(): Money = items.map { it.lineAmount() }.sumOf(currency)
 
     companion object {
         fun createForCustomer(customerId: String): Basket {
@@ -60,13 +63,12 @@ data class Basket(
 data class BasketItem(
     val productId: String,
     val quantity: Int,
-    val unitPriceMinor: Long,
+    val unitPrice: Money,
 ) {
 
     init {
         require(productId.isNotBlank()) { "Produkt-ID kan ikke være tom" }
         require(quantity > 0) { "Antall må være større enn 0" }
-        require(unitPriceMinor >= 0) { "Enhetspris kan ikke være negativ" }
     }
 
     fun increaseQuantity(by: Int): BasketItem {
@@ -74,5 +76,5 @@ data class BasketItem(
         return copy(quantity = quantity + by)
     }
 
-    fun lineAmountMinor(): Long = unitPriceMinor * quantity
+    fun lineAmount(): Money = unitPrice * quantity
 }

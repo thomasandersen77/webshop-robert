@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-fix-price-column-types
+      author: robert
+      changes:
+        - modifyDataType:
+            tableName: products
+            columnName: price_minor
+            newDataType: bigint
