@@ -20,4 +20,8 @@ class UserRepositoryAdapter(
 
     override fun save(user: User): User =
         jpa.save(user.toEntity()).toDomain()
+
+    override fun deleteAll() {
+        jpa.deleteAll()
+    }
 }

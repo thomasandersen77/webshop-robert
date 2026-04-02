@@ -36,8 +36,6 @@ class AdminController(
         return ProductResponse.from(product)
     }
 
-    @PostMapping("/users")
-    fun addUser() = println("Adding user")
 
 }
 

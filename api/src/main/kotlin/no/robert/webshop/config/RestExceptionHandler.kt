@@ -2,6 +2,10 @@ package no.robert.webshop.config
 
 import no.robert.webshop.admin.DuplicateCategoryException
 import no.robert.webshop.admin.ProductCategoryNotFoundException
+import no.robert.webshop.basket.BasketAlreadyExistsException
+import no.robert.webshop.basket.BasketNotFoundException
+import no.robert.webshop.basket.BasketProductNotFoundException
+import no.robert.webshop.basket.BasketProductNotInBasketException
 import no.robert.webshop.dto.auth.ErrorResponseDto
 import no.robert.webshop.identity.AccessDeniedException
 import no.robert.webshop.identity.auth.EmailAlreadyRegisteredException
@@ -27,6 +31,22 @@ class RestExceptionHandler {
     @ExceptionHandler(ProductCategoryNotFoundException::class)
     fun productCategoryNotFound(ex: ProductCategoryNotFoundException): ResponseEntity<ErrorResponseDto> =
         ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ErrorResponseDto(ex.message ?: "Produktkategori ikke funnet"))
+
+    @ExceptionHandler(BasketAlreadyExistsException::class)
+    fun basketAlreadyExists(ex: BasketAlreadyExistsException): ResponseEntity<ErrorResponseDto> =
+        ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorResponseDto(ex.message ?: "Handlekurv finnes allerede"))
+
+    @ExceptionHandler(BasketNotFoundException::class)
+    fun basketNotFound(ex: BasketNotFoundException): ResponseEntity<ErrorResponseDto> =
+        ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDto(ex.message ?: "Handlekurv ikke funnet"))
+
+    @ExceptionHandler(BasketProductNotFoundException::class)
+    fun basketProductNotFound(ex: BasketProductNotFoundException): ResponseEntity<ErrorResponseDto> =
+        ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDto(ex.message ?: "Produkt ikke funnet"))
+
+    @ExceptionHandler(BasketProductNotInBasketException::class)
+    fun basketProductNotInBasket(ex: BasketProductNotInBasketException): ResponseEntity<ErrorResponseDto> =
+        ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDto(ex.message ?: "Produkt finnes ikke i handlekurven"))
 
     @ExceptionHandler(InvalidCredentialsException::class)
     fun unauthorized(ex: InvalidCredentialsException): ResponseEntity<ErrorResponseDto> =

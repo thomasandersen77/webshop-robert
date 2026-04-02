@@ -1,6 +1,8 @@
 package no.robert.webshop.support
 
+import no.robert.webshop.UserRepository
 import no.robert.webshop.admin.AdminRepository
+import no.robert.webshop.basket.BasketRepository
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -26,9 +28,17 @@ abstract class AbstractPostgresIntegrationIT {
     @Autowired
     private lateinit var adminRepository: AdminRepository
 
+    @Autowired
+    private lateinit var userRepository: UserRepository
+
+    @Autowired
+    private lateinit var basketRepository: BasketRepository
+
     @BeforeEach
     fun clearDatabase() {
+        basketRepository.deleteAll()
         adminRepository.deleteAllProducts()
         adminRepository.deleteAllCategories()
+        userRepository.deleteAll()
     }
 }

@@ -44,7 +44,8 @@ data class ProductStock(
 
 data class ProductCategory(
     val id: String? = null,
-    val name: String
+    val name: String,
+    val products: List<Product> = emptyList()
 )
 
 data class OrderSummary(

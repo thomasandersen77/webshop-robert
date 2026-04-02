@@ -11,4 +11,6 @@ interface UserRepository {
     fun existsByEmail(email: String): Boolean
 
     fun save(user: User): User
+
+    fun deleteAll()
 }
